@@ -29,3 +29,10 @@ spring:
 token:
   secret: test-secret
   expiration_time: 360000
+
+kakao:
+  request_location: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2cc75a74e85683992fb98e60dfb983ab&redirect_uri=http://localhost:8989/api/v1/login
+  client_id: 2cc75a74e85683992fb98e60dfb983ab
+  redirect_uri: http://localhost:8989/api/v1/login
+  kauth_token_url: https://kauth.kakao.com
+  kauth_user_url: https://kapi.kakao.com
