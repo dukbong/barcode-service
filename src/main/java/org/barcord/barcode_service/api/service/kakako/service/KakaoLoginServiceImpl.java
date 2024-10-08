@@ -1,7 +1,6 @@
 package org.barcord.barcode_service.api.service.kakako.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.barcord.barcode_service.api.service.kakako.dto.KakaoInfoResponse;
 import org.barcord.barcode_service.api.service.kakako.dto.KakaoResponse;
 import org.barcord.barcode_service.api.service.kakako.dto.KakaoUserInfoResponse;
@@ -9,12 +8,9 @@ import org.barcord.barcode_service.api.service.kakako.response.KakaoLoginRespons
 import org.barcord.barcode_service.domain.user.User;
 import org.barcord.barcode_service.domain.user.UserRepository;
 import org.barcord.barcode_service.exception.KakaoLoginException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -63,10 +59,10 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
                 KakaoResponse kakaoResponse = response.getBody();
                 if(kakaoResponse == null) throw new KakaoLoginException("로그인에 성공하였으나 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
                 ResponseEntity<KakaoUserInfoResponse> kakaoUserInfoResponse = kakaoUserInfo(kakaoResponse.getAccessToken());
-                ResponseEntity<KakaoInfoResponse> kakaoInfoResponse = kakaoInfo(kakaoResponse.getAccessToken());
+
                 userRepository.save(User.builder()
-                        .kakaoId("")
-                        .nickName(Objects.requireNonNull(kakaoUserInfoResponse.getBody()).getName())
+                        .kakaoId(String.valueOf(Objects.requireNonNull(kakaoUserInfoResponse.getBody()).getId()))
+                        .nickName(kakaoUserInfoResponse.getBody().getProperties().getNickname())
                         .build());
 
                 return KakaoLoginResponse.builder()
@@ -87,10 +83,6 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
         } catch (Exception e) {
             throw new KakaoLoginException("로그인 중 오류가 발생헀습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return null;
-    }
-//    회원 ID,
-    private ResponseEntity<KakaoInfoResponse> kakaoInfo(String accessToken) {
         return null;
     }
 

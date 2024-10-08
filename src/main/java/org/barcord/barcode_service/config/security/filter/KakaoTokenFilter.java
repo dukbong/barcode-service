@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Objects;
 
 @Component
@@ -73,6 +75,7 @@ public class KakaoTokenFilter extends OncePerRequestFilter {
                     }
                 }
             } else {
+                // 원인 권한이 없어서 그렇다. 403에러 10-08일 여기까지
                 Authentication authentication = new UsernamePasswordAuthenticationToken(kakaoInfoResponse.getBody().getId(), null);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
