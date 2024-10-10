@@ -40,23 +40,8 @@ spring:
             client-id: 2cc75a74e85683992fb98e60dfb983ab
             client-secret: Z4HLxjIQMFe224SSuHTojXueU3DIOjEQ
             client-authentication-method: client_secret_post
-            redirect-uri: http://localhost:8989/login/oauth2/code/kakao
+            redirect-uri: http://192.168.1.210:8989/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
             client-name: kakao
             scope:
               - profile_nickname
-
-
-
-#token:
-#  secret: test-secret
-#  expiration_time: 360000
-#
-#kakao:
-#  request_location: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2cc75a74e85683992fb98e60dfb983ab&redirect_uri=http://localhost:8989/login/oauth2/code/kakao
-#  client_id: 2cc75a74e85683992fb98e60dfb983ab
-#  redirect_uri: http://localhost:8989/api/v1/login
-#  kauth_token_url: https://kauth.kakao.com
-#  kauth_user_url: https://kapi.kakao.com
-  
-

@@ -6,6 +6,13 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	/***
+	 * SELECT *
+	 * FROM USER A
+	 * WHERE A.KAKAO_ID = ?
+	 * @param kakaoId
+	 * @return
+	 */
 	Optional<User> findByKakaoId(String kakaoId);
 
 }
